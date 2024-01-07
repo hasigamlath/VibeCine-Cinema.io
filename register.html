@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
+    <!--Box-icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        function signup(e) {
+            console.log("asd")
+            e.preventDefault();
+            const form = e.target;
+            const username = form.elements["username"].value
+            const email = form.elements["email"].value
+            const password = form.elements["password"].value
+
+            axios.post('http://localhost:5100/api/guardian/register', {
+                    username: username,
+                    email: email,
+                    password: password
+                })
+                .then(function(response) {
+                    // Handle the successful response
+                    console.log('Response:', response.data);
+                })
+                .catch(function(error) {
+                    alert(error.response.data)
+                        // Handle errors
+                    console.log(error)
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+    <script>
+        function login(e) {
+            console.log("asd")
+            e.preventDefault();
+            const form = e.target;
+            const email = form.elements["email"].value
+            const password = form.elements["password"].value
+
+            axios.post('http://localhost:5100/api/guardian/login', {
+                    email: email,
+                    password: password
+                })
+                .then(function(response) {
+                    sessionStorage.setItem("token", response.token)
+                    window.location.href = "./log.html"
+
+                })
+                .catch(function(error) {
+                    alert(error.response.data)
+                    console.error('Error:', error);
+                });
+            //{headers: {token:sessionStorage.getItem("token")}}
+        }
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <video autoplay loop muted place-inline class="back-video">
+        <source src="background01.mp4" type="video/mp4">
+    </video>
+
+    <!--Navigation-bar-->
+    <header>
+        <a href="index.html" class="logo">
+            <i class='bx bxs-camera-movie'></i> VibeCine
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!--Menu-->
+        <ul class="navbar">
+            <li><a href="#home" class="home-active">Home</a></li>
+            <li><a href="index.html">Now Showing</a></li>
+            <li><a href="index.html">Up Coming</a></li>
+            <li><a href="index.html">About Us</a></li>
+        </ul>
+        <a href="" class="btn">LogIn</a>
+    </header>
+
+    <!--Register box-->
+    <div class="wrapper">
+        <a href="log.html">
+            <span class="icon-close"><ion-icon name="close-outline"></ion-icon></span>
+        </a>
+        <!-- Login -->
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#" id="login">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                    <input type="email" required id="email" name="email">
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                    <input type="password" required id="password" name="password">
+                    <label>Password</label>
+                </div>
+                <div class="remember-forget">
+                    <label><input type="checkbox">Remember Me</label>
+                    <a href="#"><b>Forget Password ?</b></a>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+                <div class="login-register">
+                    <p>Don't have an account ?<a href="#" class="register-link"> Sign In Here</a></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sign In -->
+        <div class="form-box register">
+            <h2>Sign In</h2>
+            <form action="#" id="signup">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person-outline"></ion-icon></ion-icon></span>
+                    <input type="text" required id="username" name="username">
+                    <label>First Name</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                    <input type="email" required id="email" name="email">
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                    <input type="password" required id="password" name="password">
+                    <label>Password</label>
+                </div>
+                <div class="remember-forget">
+                    <label><input type="checkbox">I agree to the terms & conditions</label>
+                </div>
+                <button type="submit" class="btn-login">Sign In</button>
+                <div class="login-register">
+                    <p>Already have an account ?<a href="#" class="login-link"> Login Here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+
+    <!--Link Iconic js-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        console.log("asd");
+        const sform = document.getElementById("signup");
+        sform.addEventListener("submit", signup);
+    </script>
+
+    <script>
+        console.log("asd");
+        const lform = document.getElementById("login");
+        lform.addEventListener("submit", login);
+    </script>
+
+</body>
+
+</html>
