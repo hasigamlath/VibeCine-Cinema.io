@@ -1,0 +1,3 @@
+[submodule "frontend/VibeCine-Cinema.io"]
+	path = frontend/VibeCine-Cinema.io
+	url = https://github.com/hasigamlath/VibeCine-Cinema.io.git
